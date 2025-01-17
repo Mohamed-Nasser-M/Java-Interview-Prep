@@ -1,0 +1,19 @@
+class Solution {
+    public int binaryGap(int n) {
+         StringBuilder s = new StringBuilder(); boolean b =false;
+                if(Integer.bitCount(n)<=1) return 0;
+                while (n>0){
+                        if((n&1)==1){ s.append('1'); b = true;}
+                        else if(b) s.append('0');
+                        n=n>>1;
+                }
+                int cur=0,maxi=0;
+                for (int i = 0; i < s.length(); i++) {
+                        if(s.charAt(i)=='1'){
+                                if(maxi<cur+1) maxi=cur+1;
+                                cur = 0;
+                        }else cur++;
+                }
+                return maxi;
+    }
+}

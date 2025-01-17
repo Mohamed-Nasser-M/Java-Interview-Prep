@@ -1,0 +1,31 @@
+class Solution {
+    public int maxCompatibilitySum(int[][] students, int[][] mentors) {
+        int m = students.length;
+        boolean[] used = new boolean[m];
+        return backtrack(students, mentors, used, 0, m, 0);
+    }
+    private int backtrack(int[][] students, int[][] mentors, boolean[] used, int studentIndex, int m, int currentScore) {
+        if (studentIndex == m) {
+            return currentScore;
+        }
+        int maxScore = 0;
+        for (int i = 0; i < m; i++) {
+            if (!used[i]) {
+                used[i] = true;
+                int score = calculateScore(students[studentIndex], mentors[i]);
+                maxScore = Math.max(maxScore, backtrack(students, mentors, used, studentIndex + 1, m, currentScore + score));
+                used[i] = false;
+            }
+        }
+        return maxScore;
+    }
+    private int calculateScore(int[] student, int[] mentor) {
+        int score = 0;
+        for (int i = 0; i < student.length; i++) {
+            if (student[i] == mentor[i]) {
+                score++;
+            }
+        }
+        return score;
+    }
+}

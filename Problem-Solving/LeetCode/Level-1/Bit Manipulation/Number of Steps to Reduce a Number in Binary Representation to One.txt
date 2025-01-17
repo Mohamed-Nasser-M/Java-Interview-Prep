@@ -1,0 +1,19 @@
+import java.math.BigInteger;
+
+class Solution {
+    public int numSteps(String s) {
+        int steps = 0;
+        BigInteger num = new BigInteger(s, 2);
+        
+        while (num.compareTo(BigInteger.ONE) > 0) {
+            if (num.mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
+                num = num.divide(BigInteger.TWO);
+            } else {
+                num = num.add(BigInteger.ONE);
+            }
+            steps++;
+        }
+        
+        return steps;
+    }
+}
